@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NBD Premium - Final Video</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            background: #050811; 
+            color: white;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            width: 900px;
+            height: 550px;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(25px);
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            overflow: hidden;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
+        }
+
+        .overlay-panel {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: calc(50% - 40px);
+            height: calc(100% - 40px);
+            border-radius: 30px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.9s cubic-bezier(0.7, 0, 0.3, 1);
+            overflow: hidden;
+            background: #000;
+        }
+
+        /* তোর সেই ভিডিওটা বক্সের ভেতরে সেট করলাম */
+        .overlay-panel iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 180%; 
+            height: 180%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .video-mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: 2;
+        }
+
+        .container.active .overlay-panel {
+            transform: translateX(calc(-100% - 10px));
+        }
+
+        .panel-content-sync {
+            position: relative;
+            z-index: 10; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.9s cubic-bezier(0.7, 0, 0.3, 1);
+        }
+
+        /* লোগো ও চোখ - LOGIN7 স্টাইল */
+        .logo-wrapper {
+            position: relative;
+            width: 180px;
+            margin-bottom: 15px;
+        }
+
+        .nbd-logo-img { 
+            width: 100%; 
+            display: block;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
+        }
+
+        .eyes { 
+            position: absolute; 
+            top: 58px; 
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex; 
+            gap: 14px; 
+        }
+
+        .eye { width: 11px; height: 11px; background: white; border-radius: 50%; position: relative; }
+        .pupil { width: 6px; height: 6px; background: black; border-radius: 50%; position: absolute; right: 2px; top: 2px; }
+
+        .panel-text { text-align: center; }
+        .panel-text h2 { margin: 0; font-size: 28px; font-weight: 800; }
+        .panel-text p { margin: 8px 0 0; font-size: 14px; opacity: 0.9; }
+
+        .container.active .panel-content-sync {
+            transform: translateX(20px) rotate(10deg);
+        }
+
+        .form-section {
+            position: absolute;
+            width: 50%; height: 100%;
+            display: flex; flex-direction: column; justify-content: center;
+            padding: 60px; box-sizing: border-box; transition: opacity 0.5s;
+        }
+        .login-form { left: 0; opacity: 1; z-index: 5; }
+        .signup-form { right: 0; opacity: 0; z-index: 1; }
+        .container.active .login-form { opacity: 0; z-index: 1; pointer-events: none; }
+        .container.active .signup-form { opacity: 1; z-index: 5; pointer-events: all; }
+
+        h1 { font-size: 28px; margin-bottom: 15px; }
+        input {
+            width: 100%; padding: 15px; background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+            color: white; margin-bottom: 12px; outline: none;
+        }
+        .btn-grad {
+            background: linear-gradient(to right, #6366f1, #a855f7);
+            color: white; padding: 16px; border: none; border-radius: 12px;
+            font-weight: 600; cursor: pointer;
+        }
+        .switch-text { margin-top: 20px; font-size: 14px; text-align: center; }
+        .switch-text b { cursor: pointer; text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<div class="container" id="main">
+    <div class="overlay-panel">
+        <iframe src="https://player.vimeo.com/video/1179929866?background=1&autoplay=1&loop=1&muted=1" 
+                frameborder="0" allow="autoplay; fullscreen"></iframe>
+        <div class="video-mask"></div>
+
+        <div class="panel-content-sync">
+            <div class="logo-wrapper">
+                <img src="https://i.ibb.co/KpM5ZQfM/nbd-new-logo.png" class="nbd-logo-img" alt="NBD Logo">
+                <div class="eyes">
+                    <div class="eye"><div class="pupil"></div></div>
+                    <div class="eye"><div class="pupil"></div></div>
+                </div>
+            </div>
+            <div class="panel-text">
+                <h2>Secure Access</h2>
+                <p>Your data is safe with us</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-section login-form">
+        <h1>Welcome Back</h1>
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Password">
+        <button class="btn-grad">Sign In</button>
+        <div class="switch-text">New here? <b onclick="toggle()">Sign Up</b></div>
+    </div>
+
+    <div class="form-section signup-form">
+        <h1>Create Account</h1>
+        <input type="text" placeholder="Full Name">
+        <input type="email" placeholder="Email Address">
+        <input type="password" placeholder="Password">
+        <button class="btn-grad">Get Started</button>
+        <div class="switch-text">Member? <b onclick="toggle()">Login</b></div>
+    </div>
+</div>
+
+<script>
+    function toggle() {
+        document.getElementById('main').classList.toggle('active');
+    }
+</script>
+
+</body>
+</html>
