@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NBD Premium - Final Pro</title>
+    <title>NBD Premium - SMM</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
 
@@ -18,12 +18,11 @@
             justify-content: center;
             align-items: center;
             font-family: 'Poppins', sans-serif;
-            background: #020617; /* ডার্ক ব্যাকগ্রাউন্ড */
+            background: #020617; 
             color: white;
             overflow: hidden;
         }
 
-        /* মেইন কার্ড */
         .container {
             position: relative;
             width: 900px;
@@ -38,7 +37,7 @@
             z-index: 1;
         }
 
-        /* --- Overlay Panel (বক্সের ভেতর ভিডিও) --- */
+        /* --- Overlay Panel --- */
         .overlay-panel {
             position: absolute;
             top: 20px;
@@ -55,7 +54,7 @@
             overflow: hidden;
         }
 
-        /* ডিরেক্ট ভিডিও ফাইল সেটিং */
+        /* ডাইরেক্ট ভিডিও ফাইল */
         .panel-video {
             position: absolute;
             top: 0;
@@ -66,14 +65,13 @@
             z-index: 1;
         }
 
-        /* ভিডিওর ওপর হালকা অন্ধকার লেয়ার যেন টেক্সট ফুটে ওঠে */
         .video-mask {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.15);
+            background: rgba(0, 0, 0, 0.2);
             z-index: 2;
         }
 
@@ -81,7 +79,7 @@
             transform: translateX(calc(-100% - 10px));
         }
 
-        /* --- লোগো ও চোখ (তোর অরিজিনাল LOGIN7 স্টাইল) --- */
+        /* --- লোগো ও চোখ (Fixed) --- */
         .panel-content-sync {
             position: relative;
             z-index: 10; 
@@ -104,7 +102,6 @@
             filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
         }
 
-        /* চোখের নিখুঁত পজিশন */
         .eyes { 
             position: absolute; 
             top: 58px; 
@@ -121,12 +118,11 @@
         .panel-text h2 { margin: 0; font-size: 28px; font-weight: 800; text-shadow: 0 4px 15px rgba(0,0,0,0.8); }
         .panel-text p { margin: 5px 0 0; font-size: 14px; color: #cbd5e1; }
 
-        /* সুইচ করার সময় লোগো-চোখ কাত হওয়া */
         .container.active .panel-content-sync {
             transform: translateX(25px) rotate(10deg);
         }
 
-        /* ফর্ম স্টাইল */
+        /* Forms */
         .form-section {
             position: absolute;
             width: 50%; height: 100%;
