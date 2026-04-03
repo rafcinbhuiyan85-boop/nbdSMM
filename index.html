@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NBD Premium - Direct Video</title>
+    <title>NBD Premium - Final Pro</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
 
@@ -18,11 +18,12 @@
             justify-content: center;
             align-items: center;
             font-family: 'Poppins', sans-serif;
-            background: #020617; 
+            background: #020617; /* ডার্ক ব্যাকগ্রাউন্ড */
             color: white;
             overflow: hidden;
         }
 
+        /* মেইন কার্ড */
         .container {
             position: relative;
             width: 900px;
@@ -37,13 +38,14 @@
             z-index: 1;
         }
 
-        /* --- Overlay Panel (এই বক্সের ভেতরেই ভিডিও চলবে) --- */
+        /* --- Overlay Panel (বক্সের ভেতর ভিডিও) --- */
         .overlay-panel {
             position: absolute;
             top: 20px;
             right: 20px;
             width: calc(50% - 40px);
             height: calc(100% - 40px);
+            background: #000;
             border-radius: 30px;
             z-index: 100;
             display: flex;
@@ -51,10 +53,9 @@
             justify-content: center;
             transition: var(--transition);
             overflow: hidden;
-            background: #000;
         }
 
-        /* লোকাল ভিডিও ফাইল সেটিং */
+        /* ডিরেক্ট ভিডিও ফাইল সেটিং */
         .panel-video {
             position: absolute;
             top: 0;
@@ -65,13 +66,14 @@
             z-index: 1;
         }
 
+        /* ভিডিওর ওপর হালকা অন্ধকার লেয়ার যেন টেক্সট ফুটে ওঠে */
         .video-mask {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.15);
             z-index: 2;
         }
 
@@ -79,7 +81,7 @@
             transform: translateX(calc(-100% - 10px));
         }
 
-        /* --- লোগো, চোখ আর টেক্সট --- */
+        /* --- লোগো ও চোখ (তোর অরিজিনাল LOGIN7 স্টাইল) --- */
         .panel-content-sync {
             position: relative;
             z-index: 10; 
@@ -99,10 +101,10 @@
         .nbd-logo-img { 
             width: 100%; 
             display: block;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.9));
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
         }
 
-        /* চোখের পজিশন */
+        /* চোখের নিখুঁত পজিশন */
         .eyes { 
             position: absolute; 
             top: 58px; 
@@ -116,15 +118,15 @@
         .pupil { width: 6px; height: 6px; background: black; border-radius: 50%; position: absolute; right: 2px; top: 2px; }
 
         .panel-text { text-align: center; margin-top: 15px; }
-        .panel-text h2 { margin: 0; font-size: 28px; font-weight: 800; text-shadow: 0 4px 15px rgba(0,0,0,1); }
+        .panel-text h2 { margin: 0; font-size: 28px; font-weight: 800; text-shadow: 0 4px 15px rgba(0,0,0,0.8); }
         .panel-text p { margin: 5px 0 0; font-size: 14px; color: #cbd5e1; }
 
-        /* সুইচ অ্যানিমেশন */
+        /* সুইচ করার সময় লোগো-চোখ কাত হওয়া */
         .container.active .panel-content-sync {
             transform: translateX(25px) rotate(10deg);
         }
 
-        /* Forms */
+        /* ফর্ম স্টাইল */
         .form-section {
             position: absolute;
             width: 50%; height: 100%;
@@ -157,7 +159,6 @@
     <div class="overlay-panel">
         <video class="panel-video" autoplay loop muted playsinline>
             <source src="video.mp4" type="video/mp4">
-            Your browser does not support the video tag.
         </video>
         <div class="video-mask"></div>
 
