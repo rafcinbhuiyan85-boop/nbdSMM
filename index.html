@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NBD Premium - Live Anywhere</title>
+    <title>NBD Premium - Fully Responsive</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
 
         :root { --transition: all 0.9s cubic-bezier(0.7, 0, 0.3, 1); }
 
         body {
-            margin: 0; height: 100vh; display: flex;
+            margin: 0; min-height: 100vh; display: flex;
             justify-content: center; align-items: center;
             font-family: 'Poppins', sans-serif; background: #020617;
-            color: white; overflow: hidden;
+            color: white; overflow-x: hidden; padding: 20px;
         }
 
         .container {
-            position: relative; width: 900px; height: 550px;
+            position: relative; width: 100%; max-width: 900px; height: 550px;
             background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(25px);
             border-radius: 40px; border: 1px solid rgba(255, 255, 255, 0.1);
             display: flex; overflow: hidden; box-shadow: 0 50px 100px rgba(0,0,0,0.8);
-            z-index: 1;
         }
 
+        /* --- Overlay Panel (Video) --- */
         .overlay-panel {
             position: absolute; top: 20px; right: 20px;
             width: calc(50% - 40px); height: calc(100% - 40px);
@@ -32,7 +32,6 @@
             transition: var(--transition); overflow: hidden;
         }
 
-        /* GitHub Direct Link Video */
         .panel-video {
             position: absolute; top: 0; left: 0;
             width: 100%; height: 100%; object-fit: cover; z-index: 1;
@@ -40,7 +39,7 @@
 
         .video-mask {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.2); z-index: 2;
+            background: rgba(0, 0, 0, 0.25); z-index: 2;
         }
 
         .container.active .overlay-panel { transform: translateX(calc(-100% - 10px)); }
@@ -48,49 +47,106 @@
         .panel-content-sync {
             position: relative; z-index: 10; display: flex;
             flex-direction: column; align-items: center;
-            transition: var(--transition); width: 100%;
+            transition: var(--transition); width: 100%; padding: 20px;
         }
 
-        .logo-wrapper { position: relative; width: 180px; margin-bottom: 10px; }
-        .nbd-logo-img { width: 100%; display: block; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8)); }
+        .logo-wrapper { position: relative; width: 140px; margin-bottom: 5px; }
+        .nbd-logo-img { width: 100%; display: block; filter: drop-shadow(0 15px 25px rgba(0,0,0,0.9)); }
 
         .eyes { 
-            position: absolute; top: 58px; left: 50%;
-            transform: translateX(-50%); display: flex; gap: 14px; 
+            position: absolute; top: 45px; left: 50%;
+            transform: translateX(-50%); display: flex; gap: 11px; 
         }
 
-        .eye { width: 11px; height: 11px; background: white; border-radius: 50%; position: relative; }
-        .pupil { width: 6px; height: 6px; background: black; border-radius: 50%; position: absolute; right: 2px; top: 2px; }
+        .eye { width: 9px; height: 9px; background: white; border-radius: 50%; position: relative; }
+        .pupil { width: 5px; height: 5px; background: black; border-radius: 50%; position: absolute; right: 1px; top: 1px; }
 
         .panel-text { text-align: center; margin-top: 15px; }
-        .panel-text h2 { margin: 0; font-size: 28px; font-weight: 800; text-shadow: 0 4px 15px rgba(0,0,0,0.8); }
-        .panel-text p { margin: 5px 0 0; font-size: 14px; color: #cbd5e1; }
+        .panel-text h2 {
+            margin: 0; font-size: 24px; font-weight: 800; letter-spacing: 2px;
+            text-transform: uppercase; background: linear-gradient(to bottom, #ffffff, #94a3b8);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
 
-        .container.active .panel-content-sync { transform: translateX(25px) rotate(10deg); }
+        .panel-text p {
+            margin: 5px 0 0; font-size: 9px; font-weight: 400; letter-spacing: 3px;
+            text-transform: uppercase; color: rgba(255, 255, 255, 0.5);
+            border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 5px;
+        }
 
+        /* --- Forms Styles --- */
         .form-section {
             position: absolute; width: 50%; height: 100%;
             display: flex; flex-direction: column; justify-content: center;
-            padding: 60px; box-sizing: border-box; transition: opacity 0.5s;
+            padding: 40px 50px; box-sizing: border-box; transition: opacity 0.5s;
         }
         .login-form { left: 0; opacity: 1; z-index: 5; }
         .signup-form { right: 0; opacity: 0; z-index: 1; }
         .container.active .login-form { opacity: 0; pointer-events: none; }
         .container.active .signup-form { opacity: 1; z-index: 5; pointer-events: all; }
 
-        h1 { font-size: 28px; margin-bottom: 10px; font-weight: 800; }
         input {
-            width: 100%; padding: 16px; background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1); border-radius: 16px;
-            color: white; margin-bottom: 15px; outline: none;
+            width: 100%; padding: 12px; background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+            color: white; margin-bottom: 10px; outline: none; font-size: 14px;
         }
+        
         .btn-grad {
             background: linear-gradient(to right, #6366f1, #a855f7);
-            color: white; padding: 16px; border: none; border-radius: 16px;
-            font-weight: 600; cursor: pointer;
+            color: white; padding: 12px; border: none; border-radius: 12px;
+            font-weight: 600; cursor: pointer; transition: 0.3s;
         }
-        .switch-text { margin-top: 25px; text-align: center; font-size: 14px; color: #94a3b8; }
+
+        .separator {
+            display: flex; align-items: center; margin: 12px 0;
+            font-size: 11px; color: rgba(255,255,255,0.3);
+        }
+        .separator::before, .separator::after { content: ""; flex: 1; height: 1px; background: rgba(255,255,255,0.1); }
+
+        .google-btn {
+            background: white; color: #333; padding: 10px; border-radius: 12px;
+            border: none; font-weight: 600; font-size: 13px; display: flex;
+            align-items: center; justify-content: center; gap: 8px; cursor: pointer;
+        }
+        .google-btn img { width: 16px; }
+
+        .switch-text { margin-top: 15px; text-align: center; font-size: 12px; color: #94a3b8; }
         .switch-text b { color: #fff; cursor: pointer; text-decoration: underline; }
+
+        /* =============================================
+           MOBILE & TABLET RESPONSIVE (মাথা নষ্ট এনিমেশন)
+           ============================================= */
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { 
+                flex-direction: column; 
+                height: auto; 
+                min-height: 650px; 
+                max-width: 400px;
+                border-radius: 30px;
+            }
+            .overlay-panel {
+                position: relative;
+                top: 0; right: 0;
+                width: 100%;
+                height: 220px;
+                border-radius: 0 0 30px 30px;
+                transform: none !important;
+            }
+            .form-section {
+                position: relative;
+                width: 100%;
+                height: auto;
+                padding: 30px 25px;
+                left: 0 !important;
+                right: 0 !important;
+            }
+            .signup-form { display: none; }
+            .container.active .login-form { display: none; }
+            .container.active .signup-form { display: flex; opacity: 1; }
+            
+            .container.active .panel-content-sync { transform: scale(0.95); }
+        }
     </style>
 </head>
 <body>
@@ -111,33 +167,55 @@
                 </div>
             </div>
             <div class="panel-text">
-                <h2>Secure Access</h2>
-                <p>Your data is safe with us</p>
+                <h2 id="main-title">NBD PREMIUM</h2>
+                <p id="sub-title">Secure Access Panel</p>
             </div>
         </div>
     </div>
 
     <div class="form-section login-form">
-        <h1>Welcome Back</h1>
+        <h1 style="font-size: 22px; margin-bottom: 10px;">Welcome Back</h1>
         <input type="email" placeholder="Email Address">
         <input type="password" placeholder="Password">
-        <button class="btn-grad">Login Now</button>
+        <button class="btn-grad">Sign In</button>
+        <div class="separator">OR</div>
+        <button class="google-btn">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google">
+            Sign in with Google
+        </button>
         <div class="switch-text">New here? <b onclick="toggle()">Sign Up</b></div>
     </div>
 
     <div class="form-section signup-form">
-        <h1>Create Account</h1>
+        <h1 style="font-size: 22px; margin-bottom: 10px;">Create Account</h1>
         <input type="text" placeholder="Full Name">
         <input type="email" placeholder="Email Address">
         <input type="password" placeholder="Password">
-        <button class="btn-grad">Register</button>
+        <button class="btn-grad">Get Started</button>
+        <div class="separator">OR</div>
+        <button class="google-btn">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google">
+            Sign up with Google
+        </button>
         <div class="switch-text">Member? <b onclick="toggle()">Login</b></div>
     </div>
 </div>
 
 <script>
     function toggle() {
-        document.getElementById('main').classList.toggle('active');
+        const container = document.getElementById('main');
+        const title = document.getElementById('main-title');
+        const subTitle = document.getElementById('sub-title');
+        
+        container.classList.toggle('active');
+
+        if (container.classList.contains('active')) {
+            title.innerText = "Secure Access";
+            subTitle.innerText = "Your data is safe with us";
+        } else {
+            title.innerText = "NBD PREMIUM";
+            subTitle.innerText = "Secure Access Panel";
+        }
     }
 </script>
 
